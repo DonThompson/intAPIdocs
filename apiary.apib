@@ -12,29 +12,20 @@ A test API to play with apiary.
 Descriptive text here
 
 + Response 200 (application/json)
-
-        [
-            {
-                id: 1,
-                name: "Sample Event 1"
-            },
-            {
-                id: 2,
-                name: "Sample Event 2"
-            }
-        ]
+    + Attributes
+        - events (array[EventSummary])
 
 ### Get Single Event [GET /event/{id}]
 
 + Parameters
-    + id (string)
+    + id (string) - Unique identifier of the event
 
 + Response 200 (application/json)
-
-        {
-            id: 1,
-            name: "Sample Event 1"
-        }
+    + Attributes
+        - event (EventSummary)
+        - participants (array[EventParticipant])
+        - stages (array[EventStage])
+        - obstacles (array[EventObstacle])
 
 ### Create an Event [POST]
 
@@ -72,23 +63,53 @@ Descriptive text here
 
 
 
-TEST STAGES
+# Data Structures
 
+## EventSummary (object)
+- EventId: 5 (number) - Unique Id of the event
+- Name: `Sample Ninja Event` (string) - Viewed name of event
+- StartDate: `2018-10-10` (string) - Date only when it starts
+- ParticipantCount: 20 (number) - How many participants we currently have
+- StageCount: 4 (number) - Total count of stages
+- ActiveStageId: 9 (number) - Unique Id of the active stage.  First stage if event is to come.  Null if done.
+- ActiveStageName: `Stage 1` (string) - Name of the ActiveStageId or blank
 
+## EventParticipant (object)
+- Id: 4 (number) - Unique Id of the participant in this event
+- Name: `Don Thompson` (string) - Name of participant
 
-TEST RESULTS
+## EventStage (object)
+- StageId: 9 (number) - Unique Id of the stage
+- Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+- EventId: 5 (number) - Unique Id of the event this stage is part of
+- EventName: `Sample Ninja Event` (string) - Viewed name of the event this stage is part of
+- Obstacles (EventObstacle) - List of obstacles in this stage
+- Participants (StageParticipant) - List of participants in this stage
 
+## EventObstacle (object)
+- ObstacleId: 13 (number) - Unique Id of this obstacle
+- Name: `Warped Wall` (string) - Name of this obstacle
+- StageId: 9 (number) - Unique Id of the stage this obstacle is part of
+- Description: `A very tall curved wall` (string) -  A description of the obstacle
 
+## StageParticipant (object)
+- Participant (EventParticipant) - Reference to participant data
+- Results (SingleResult) - Reference to participant results
 
-TEST MODELS
+## SingleResult (object)
+- RunId: 42 (number) - Unique Id of this result among all results
+- StageRunOrder: 8 (number) - Order of this run among all participants in this stage
+- RunTime: 84.15 (number) - Total run time to success or failure in seconds.  May include decimal seconds
+- NumObstaclesCompleted: 6 (number) - Count of obstacles passed in this result
 
-# EventSummary (object)
-Complete summary of an event.
+## SingleResultDetails (object) - Additional details about a given run
+- RunId: 42 (number) - Unique Id of this result among all results
+- RunStartLocalTime: `2018-10-10T14:03:52` (string) - Local time without time zone when the run started
+- RunEndLocalTime: `2018-10-10T14:05:15` (string) - Local time without time zone when the run completed
+- ObstacleDetails (SingleObstacleResultDetails) - Details about timing for each obstacle
 
-+ EventId (number)
-+ Name (string)
-+ StartDate (string)
-+ ParticipantCount (number)
-+ StageCount (number)
-+ ActiveStageId (number)
-+ ActiveStageName (string)
+## SingleObstacleResultDetails
+- ObstacleId: 13 (number) - Unique Id of the obstacle attempted
+- TotalTimeToComplete: 18.3 (number) - Total time from the beginning of the run to completion of this obstacle.  Each obstacle will include all previous obstacles.
+- Completed:  true (boolean) - Was the obstacle completed?
+- Attempted:  true (boolean) - Was the obstacle attempted yet?
