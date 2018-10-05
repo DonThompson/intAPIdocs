@@ -6,7 +6,10 @@ HOST: http://inttest.apiblueprint.org/
 A test API to play with apiary.
 
 
-## Events Collection [/event]
+## Events Collection [/event/{eventid}]
+
++ Parameters
+    + eventid (number) - Unique identifier of the event
 
 ### List All Events [GET]
 
@@ -14,10 +17,7 @@ A test API to play with apiary.
     + Attributes
         - events (array[EventSummary])
 
-### Get Single Event [GET /event/{id}]
-
-+ Parameters
-    + id (number) - Unique identifier of the event
+### Get Single Event [GET /event/{eventid}]
 
 + Response 200 (application/json)
     + Attributes
@@ -26,7 +26,7 @@ A test API to play with apiary.
         - stages (array[EventStage])
         - obstacles (array[EventObstacle])
 
-### Create an Event [POST]
+### Create an Event [POST /events]
 
 + Request (application/json)
 
@@ -40,7 +40,7 @@ A test API to play with apiary.
             id:  123
         }
 
-### Update an Event [PUT]
+### Update an Event [PUT /events/{eventid}]
 
 + Request (application/json)
 
@@ -50,7 +50,7 @@ A test API to play with apiary.
 
 + Response 204
 
-### Delete an Event [DELETE]
+### Delete an Event [DELETE /events/{eventid}]
 
 + Request (application/json)
 
@@ -60,14 +60,13 @@ A test API to play with apiary.
 
 + Response 204
 
-## Stages Collection [/events/{eventid}/stages]
+## Stages Collection [/events/{eventid}/stages/{stageid}]
 
-### Retrieve a single stage [GET /events/{eventid}/stages/{stageid}]
-
-+ Request (application/json)
     + Parameters
         + eventid (number) - Unique identifier of the event
         + stageid (number) - Unique identifier of the stage
+
+### Retrieve a single stage [GET /events/{eventid}/stages/{stageid}]
 
 + Response 200 (application/json)
     + Attributes
@@ -107,14 +106,15 @@ A test API to play with apiary.
 
 
 
-## Results Collection [/events/{eventid}/results]
+## Results Collection [/events/{eventid}/results/{resultid}]
+
+    + Parameters
+        + eventid (number) - Unique identifier of the event
+        + resultid (number) - Unique identifier of the result
 
 ### Retrive a single result [GET /events/{eventid}/results/{resultid}]
 
 + Request (application/json)
-    + Parameters
-        + eventid (number) - Unique identifier of the event
-        + resultid (number) - Unique identifier of the result
 
 + Response 200 (application/json)
     + Attributes
@@ -135,7 +135,19 @@ A test API to play with apiary.
             name: "NOT YET IMPLEMENTED - NEW ID HERE"
         }
 
-### Update a result [PUT /events/{eventid}/results]
+### Delete a result [DELETE /events/{eventid}/results]
+
++ Response 204
+
+
+## Result Obstacle Collection [/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
+
+    + Parameters
+        + eventid (number) - Unique identifier of the event
+        + resultid (number) - Unique identifier of the result
+        + obstacleid (number) - Unique identifier of the obstacle in this stage to save results for
+
+### Update a result [PUT /events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
 
 + Request (application/json)
 
@@ -148,10 +160,6 @@ A test API to play with apiary.
         {
             name: "NOT YET IMPLEMENTED - NEW ID HERE"
         }
-
-### Delete a result [DELETE /events/{eventid}/results]
-
-+ Response 204
 
 
 # Data Structures
