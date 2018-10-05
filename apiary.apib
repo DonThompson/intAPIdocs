@@ -9,7 +9,6 @@ A test API to play with apiary.
 ## Events Collection [/event]
 
 ### List All Events [GET]
-Descriptive text here
 
 + Response 200 (application/json)
     + Attributes
@@ -18,7 +17,7 @@ Descriptive text here
 ### Get Single Event [GET /event/{id}]
 
 + Parameters
-    + id (string) - Unique identifier of the event
+    + id (number) - Unique identifier of the event
 
 + Response 200 (application/json)
     + Attributes
@@ -61,6 +60,98 @@ Descriptive text here
 
 + Response 204
 
+## Stages Collection [/events/{eventid}/stages]
+
+### Retrieve a single stage [GET /events/{eventid}/stages/{stageid}]
+
++ Request (application/json)
+    + Parameters
+        + eventid (number) - Unique identifier of the event
+        + stageid (number) - Unique identifier of the stage
+
++ Response 200 (application/json)
+    + Attributes
+        - data (EventStage) - Data for this particular stage
+
+### Create a new stage [POST /events/{eventid}/stages]
+
++ Request (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED"
+        }
+
++ Response 201 (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED - NEW ID?"
+        }
+
+### Update stage data [PUT /events/{eventid}/stages/{stageid}]
+
++ Request (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED"
+        }
+
++ Response 200 (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED"
+        }
+
+### Delete a stage [DELETE /events/{eventid}/stages/{stageid}]
+
++ Response 204
+
+
+
+## Results Collection [/events/{eventid}/results]
+
+### Retrive a single result [GET /events/{eventid}/results/{resultid}]
+
++ Request (application/json)
+    + Parameters
+        + eventid (number) - Unique identifier of the event
+        + resultid (number) - Unique identifier of the result
+
++ Response 200 (application/json)
+    + Attributes
+        - summary (SingleResult)
+        - details (SingleResultDetails)
+
+### Record a new result [POST /events/{eventid}/results]
+
++ Request (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED"
+        }
+
++ Response 201 (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED - NEW ID HERE"
+        }
+
+### Update a result [PUT /events/{eventid}/results]
+
++ Request (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED"
+        }
+
++ Response 200 (application/json)
+
+        {
+            name: "NOT YET IMPLEMENTED - NEW ID HERE"
+        }
+
+### Delete a result [DELETE /events/{eventid}/results]
+
++ Response 204
 
 
 # Data Structures
