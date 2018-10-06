@@ -32,16 +32,10 @@ A test API to play with apiary.
 ### Create an Event [POST /api/events]
 
 + Request (application/json)
-
-        {
-            name: "Event Name Here"
-        }
+    + Attributes (EventCreate)
 
 + Response 201 (application/json)
-
-        {
-            id:  123
-        }
+    + Attributes (EventCreateResponse)
 
 + Response 400 (application/json)
     + Attributes (Error400)
@@ -88,16 +82,10 @@ A test API to play with apiary.
 ### Create a new stage [POST /api/events/{eventid}/stages]
 
 + Request (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED"
-        }
+    + Attributes (EventStageCreate)
 
 + Response 201 (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED - NEW ID?"
-        }
+    + Attributes (EventStageCreateResponse)
 
 + Response 400 (application/json)
     + Attributes (Error400)
@@ -249,3 +237,17 @@ A test API to play with apiary.
 
 ## Error400 (object)
 - message: `An error has occurred` (string)
+
+## EventCreate (object) - An object for the creation of a new event
+- Name: `Sample Ninja Event` (string) - Visible display name of the event
+- StartDate: `2018-10-10` (string) - Date the event begins
+
+## EventCreateResponse (object) - Response after successfully creating an event
+- EventId: 5 (number) - Unique Id of the event just created
+
+## EventStageCreate (object)
+- Name: `Stage 1` (string) - Name of the stage
+- Order: 1 (number) - Order of this stage
+
+## EventStageCreateResponse (object)
+- StageId: 9 (number) - Unique Id of the stage just created
