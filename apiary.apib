@@ -43,6 +43,9 @@ A test API to play with apiary.
             id:  123
         }
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Update an Event [PUT /api/events/{eventid}]
 
 + Request (application/json)
@@ -53,6 +56,9 @@ A test API to play with apiary.
 
 + Response 204
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Delete an Event [DELETE /api/events/{eventid}]
 
 + Request (application/json)
@@ -62,6 +68,9 @@ A test API to play with apiary.
         }
 
 + Response 204
+
++ Response 400 (application/json)
+    + Attributes (Error400)
 
 ## Stages Collection [/api/events/{eventid}/stages/{stageid}]
 
@@ -90,6 +99,9 @@ A test API to play with apiary.
             name: "NOT YET IMPLEMENTED - NEW ID?"
         }
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Update stage data [PUT /api/events/{eventid}/stages/{stageid}]
 
 + Request (application/json)
@@ -104,10 +116,15 @@ A test API to play with apiary.
             name: "NOT YET IMPLEMENTED"
         }
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Delete a stage [DELETE /api/events/{eventid}/stages/{stageid}]
 
 + Response 204
 
++ Response 400 (application/json)
+    + Attributes (Error400)
 
 
 ## Results Collection [/api/events/{eventid}/results/{resultid}]
@@ -127,6 +144,9 @@ A test API to play with apiary.
         
 + Response 404
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Record a new result [POST /api/events/{eventid}/results]
 
 + Request (application/json)
@@ -141,10 +161,15 @@ A test API to play with apiary.
             name: "NOT YET IMPLEMENTED - NEW ID HERE"
         }
 
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Delete a result [DELETE /api/events/{eventid}/results]
 
 + Response 204
 
++ Response 400 (application/json)
+    + Attributes (Error400)
 
 ## Result Obstacle Collection [/api/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
 
@@ -166,6 +191,9 @@ A test API to play with apiary.
         {
             name: "NOT YET IMPLEMENTED - NEW ID HERE"
         }
+
++ Response 400 (application/json)
+    + Attributes (Error400)
 
 
 # Data Structures
@@ -213,8 +241,11 @@ A test API to play with apiary.
 - RunEndLocalTime: `2018-10-10T14:05:15` (string) - Local time without time zone when the run completed
 - ObstacleDetails (SingleObstacleResultDetails) - Details about timing for each obstacle
 
-## SingleObstacleResultDetails
+## SingleObstacleResultDetails (object)
 - ObstacleId: 13 (number) - Unique Id of the obstacle attempted
 - TotalTimeToComplete: 18.3 (number) - Total time from the beginning of the run to completion of this obstacle.  Each obstacle will include all previous obstacles.
 - Completed:  true (boolean) - Was the obstacle completed?
 - Attempted:  true (boolean) - Was the obstacle attempted yet?
+
+## Error400 (object)
+- message: `An error has occurred` (string)
