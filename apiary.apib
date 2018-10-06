@@ -26,6 +26,9 @@ A test API to play with apiary.
         - stages (array[EventStage])
         - obstacles (array[EventObstacle])
 
++ Response 404
+
+
 ### Create an Event [POST /api/events]
 
 + Request (application/json)
@@ -69,8 +72,7 @@ A test API to play with apiary.
 ### Retrieve a single stage [GET /api/events/{eventid}/stages/{stageid}]
 
 + Response 200 (application/json)
-    + Attributes
-        - data (EventStage) - Data for this particular stage
+    + Attributes (EventStage)
 
 ### Create a new stage [POST /api/events/{eventid}/stages]
 
@@ -179,11 +181,11 @@ A test API to play with apiary.
 
 ## EventStage (object)
 - StageId: 9 (number) - Unique Id of the stage
-- Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+- StageName: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
 - EventId: 5 (number) - Unique Id of the event this stage is part of
 - EventName: `Sample Ninja Event` (string) - Viewed name of the event this stage is part of
-- Obstacles (EventObstacle) - List of obstacles in this stage
-- Participants (StageParticipant) - List of participants in this stage
+- StageObstacles (array[EventObstacle]) - List of obstacles in this stage
+- StageParticipants (array[StageParticipant]) - List of participants in this stage
 
 ## EventObstacle (object)
 - ObstacleId: 13 (number) - Unique Id of this obstacle
