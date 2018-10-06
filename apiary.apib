@@ -74,6 +74,8 @@ A test API to play with apiary.
 + Response 200 (application/json)
     + Attributes (EventStage)
 
++ Response 404
+
 ### Create a new stage [POST /api/events/{eventid}/stages]
 
 + Request (application/json)
@@ -122,6 +124,8 @@ A test API to play with apiary.
     + Attributes
         - summary (SingleResult)
         - details (SingleResultDetails)
+        
++ Response 404
 
 ### Record a new result [POST /api/events/{eventid}/results]
 
@@ -149,7 +153,7 @@ A test API to play with apiary.
     + resultid (number) - Unique identifier of the result
     + obstacleid (number) - Unique identifier of the obstacle in this stage to save results for
 
-### Update a result [PUT /apidd/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
+### Update a result [PUT /api/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
 
 + Request (application/json)
 
