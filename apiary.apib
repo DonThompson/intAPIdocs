@@ -114,6 +114,16 @@ A test API to play with apiary.
 + Response 400 (application/json)
     + Attributes (Error400)
 
+## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
+
+### List all stage obstacles [GET /api/events/{eventid}/stages/{stageid}/obstacles]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        - obstacles (array[StageObstacle])
+
 
 ## Results Collection [/api/events/{eventid}/results/{resultid}]
 
@@ -218,6 +228,12 @@ A test API to play with apiary.
 - ObstacleId: 13 (number) - Unique Id of this obstacle
 - Name: `Warped Wall` (string) - Name of this obstacle
 - StageId: 9 (number) - Unique Id of the stage this obstacle is part of
+- Description: `A very tall curved wall` (string) -  A description of the obstacle
+
+## StageObstacle (object)
+- ObstacleId: 13 (number) - Unique Id of this obstacle
+- Name: `Warped Wall` (string) - Name of this obstacle
+- Order: 1 (number) - Unique Id of the stage this obstacle is part of
 - Description: `A very tall curved wall` (string) -  A description of the obstacle
 
 ## StageParticipant (object)
