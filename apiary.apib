@@ -190,10 +190,13 @@ A test API to play with apiary.
 - EventId: 5 (number) - Unique Id of the event
 - Name: `Sample Ninja Event` (string) - Viewed name of event
 - StartDate: `2018-10-10` (string) - Date only when it starts
+- Location: `Sample Location` (string) - Free text location description
+- Description: `Sample Description` (string) - Free text to describe anything else about your event
 - ParticipantCount: 20 (number) - How many participants we currently have
 - StageCount: 4 (number) - Total count of stages
-- ActiveStageId: 9 (number) - Unique Id of the active stage.  First stage if event is to come.  Null if done.
+- ActiveStageId: 9 (number) - Unique Id of the active stage.  First stage if event is to come.  Null if unstarted or done - see also Completed
 - ActiveStageName: `Stage 1` (string) - Name of the ActiveStageId or blank
+- Completed: false (boolean) - Has the event been completed?
 
 ## EventParticipant (object)
 - Id: 4 (number) - Unique Id of the participant in this event
@@ -202,8 +205,12 @@ A test API to play with apiary.
 ## EventStage (object)
 - StageId: 9 (number) - Unique Id of the stage
 - StageName: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+- StageOrder: 1 (number) - Numeric order of the stages in the event
 - EventId: 5 (number) - Unique Id of the event this stage is part of
 - EventName: `Sample Ninja Event` (string) - Viewed name of the event this stage is part of
+- ObstacleCount: 6 (number) - Count of obstacles assigned to this stage
+
+## TODOWasInEventStageButTooMuch (object)
 - StageObstacles (array[EventObstacle]) - List of obstacles in this stage
 - StageParticipants (array[StageParticipant]) - List of participants in this stage
 
