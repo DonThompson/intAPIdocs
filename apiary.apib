@@ -134,6 +134,34 @@ A test API to play with apiary.
 
 + Response 404
 
+## Stage Results [/api/events/{eventid}/stages/{stageid}/results]
+
++ Parameters
+    + eventid (number) - Unique identifier of the event
+    + stageid (number) - Unique identifier of the stage
+
+### List current stage results [GET /api/events/{eventid}/stages/{stageid}/results]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+    + Attributes
+        - details (EventStage)
+        - results (array[StageResult])
+
++ Response 404
+
+### Delete a single stage result [DELETE /api/events/{eventid}/stages/{stageid}/results/{runid}]
++ Parameters
+    + runid (number) - Unique identifier of this run result
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ## Results Collection [/api/events/{eventid}/results/{resultid}]
 
 + Parameters
@@ -262,12 +290,19 @@ A test API to play with apiary.
 - RunId: 1 (number) - Unique Id of this run
 - Participant (EventParticipant) - The participant details
 - Order: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
-- Result (RunResultSummary)
+- Result (RunResultSummary) - Time and number of obstacles finished
+
+## StageResult (object)
+- RunId: 42 (number) - Unique Id of this result among all results
+- Participant (EventParticipant) - The participant details
+- Order: 6 (number) - Order of this run in the stage
+- Place: 3 (number) - Finishing place in this stage.  Ordered by number completed descending then time ascending
+- Result (RunResultSummary) - Time and number of obstacles finished
 
 ## SingleResult (object)
 - RunId: 42 (number) - Unique Id of this result among all results
 - StageRunOrder: 8 (number) - Order of this run among all participants in this stage
-- Result (RunResultSummary)
+- Result (RunResultSummary) - Time and number of obstacles finished
 
 ## SingleResultDetails (object) - Additional details about a given run
 - RunId: 42 (number) - Unique Id of this result among all results
