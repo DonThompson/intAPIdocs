@@ -75,7 +75,11 @@ A test API to play with apiary.
 ### Retrieve a single stage [GET /api/events/{eventid}/stages/{stageid}]
 
 + Response 200 (application/json)
-    + Attributes (EventStage)
+    + Attributes
+        - details (EventStage)
+        - obstacles (array[StageObstacle])
+        - upcoming (array[UpcomingRun])
+        - finished (array[FinishedRun])
 
 + Response 404
 
@@ -116,6 +120,10 @@ A test API to play with apiary.
 
 ## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
 
++ Parameters
+    + eventid (number) - Unique identifier of the event
+    + stageid (number) - Unique identifier of the stage
+
 ### List all stage obstacles [GET /api/events/{eventid}/stages/{stageid}/obstacles]
 
 + Request (application/json)
@@ -124,6 +132,7 @@ A test API to play with apiary.
     + Attributes
         - obstacles (array[StageObstacle])
 
++ Response 404
 
 ## Results Collection [/api/events/{eventid}/results/{resultid}]
 
@@ -240,11 +249,25 @@ A test API to play with apiary.
 - Participant (EventParticipant) - Reference to participant data
 - Results (SingleResult) - Reference to participant results
 
+## UpcomingRun (object)
+- RunId: 1 (number) - Unique Id of this run
+- Participant (EventParticipant) - The participant details
+- Order: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
+
+## RunResultSummary (object)
+- NumObstaclesCompleted: 6 (number) - Count of obstacles passed in this result
+- RunTime: 84.15 (number) - Total run time to success or failure in seconds.  May include decimal seconds
+
+## FinishedRun (object)
+- RunId: 1 (number) - Unique Id of this run
+- Participant (EventParticipant) - The participant details
+- Order: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
+- Result (RunResultSummary)
+
 ## SingleResult (object)
 - RunId: 42 (number) - Unique Id of this result among all results
 - StageRunOrder: 8 (number) - Order of this run among all participants in this stage
-- RunTime: 84.15 (number) - Total run time to success or failure in seconds.  May include decimal seconds
-- NumObstaclesCompleted: 6 (number) - Count of obstacles passed in this result
+- Result (RunResultSummary)
 
 ## SingleResultDetails (object) - Additional details about a given run
 - RunId: 42 (number) - Unique Id of this result among all results
