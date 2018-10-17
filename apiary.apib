@@ -207,6 +207,21 @@ API will automatically create, order, and name the stage based on standards.
 + Response 400 (application/json)
     + Attributes (Error400)
 
+### Modify obstacle order in stage [PUT /api/events/{eventid}/stages/{stageid}/obstacles/{obstacleid}]
+
++ Parameters
+    + obstacleid (number) - Unique identifier of the obstacle in this event
+
++ Request (application/json)
+    + Attributes (StageObstacleReorder)
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Remove stage obstacle [DELETE /api/events/{eventid}/stages/{stageid}/obstacles/{obstacleid}]
 
 + Parameters
@@ -297,7 +312,7 @@ API will automatically create, order, and name the stage based on standards.
 ## UpcomingRun (object)
 - RunId: 1 (number) - Unique Id of this run
 - Participant (EventParticipant) - The participant details
-- Order: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
+- RunOrder: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
 
 ## RunResultSummary (object)
 - NumObstaclesCompleted: 6 (number) - Count of obstacles passed in this result
@@ -306,13 +321,13 @@ API will automatically create, order, and name the stage based on standards.
 ## FinishedRun (object)
 - RunId: 1 (number) - Unique Id of this run
 - Participant (EventParticipant) - The participant details
-- Order: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
+- RunOrder: 6 (number) - Order of this run in the stage - ordered from the beginning of the stage, not the remaining
 - Result (RunResultSummary) - Time and number of obstacles finished
 
 ## StageResult (object)
 - RunId: 42 (number) - Unique Id of this result among all results
 - Participant (EventParticipant) - The participant details
-- Order: 6 (number) - Order of this run in the stage
+- RunOrder: 6 (number) - Order of this run in the stage
 - Place: 3 (number) - Finishing place in this stage.  Ordered by number completed descending then time ascending
 - Result (RunResultSummary) - Time and number of obstacles finished
 
@@ -340,7 +355,8 @@ API will automatically create, order, and name the stage based on standards.
 - Obstacle (EventObstacle)
 
 ## EventStageModify (object)
-- Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+- Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.  Leave null if you do not want to change.
+- NewOrder: 1 (number) - New order of the stage if you want to re-order them.  Leave null if you do not want to change.
 
 ## StageCreateResponse (object)
 - StageId: 9 (number) - Unique Id of the stage
@@ -350,3 +366,6 @@ API will automatically create, order, and name the stage based on standards.
 
 ## StageObstacleAdd (object)
 - ObstacleId: 13 (number) - Unique Id of the event obstacle to add to the stage
+
+## StageObstacleReorder (object)
+- NewOrder: 3 (number) - New order of this obstacle in the stage.  The old obstacle at this position and all other are pushed down by one.  First obstacle is 1.
