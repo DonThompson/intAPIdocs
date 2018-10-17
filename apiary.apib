@@ -195,6 +195,32 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 404
 
+### Add obstacle to stage [POST /api/events/{eventid}/stages/{stageid}/obstacles]
+
++ Request (application/json)
+    + Attributes (StageObstacleAdd)
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+### Remove stage obstacle [DELETE /api/events/{eventid}/stages/{stageid}/obstacles/{obstacleid}]
+
++ Parameters
+    + obstacleid (number) - Unique identifier of the obstacle in this event
+
++ Response 200 (application/json)
+    + Attributes
+        - obstacles (array[StageObstacle])
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ## Stage Results [/api/events/{eventid}/stages/{stageid}/results]
 
 + Parameters
@@ -321,3 +347,6 @@ API will automatically create, order, and name the stage based on standards.
 - StageName: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
 - StageOrder: 1 (number) - Numeric order of the stages in the event
 - ObstacleCount: 0 (number) - Count of obstacles assigned to this stage
+
+## StageObstacleAdd (object)
+- ObstacleId: 13 (number) - Unique Id of the event obstacle to add to the stage
