@@ -146,6 +146,39 @@ It's Ninja Time application API
 
 + Response 404
 
+### Add a stage [POST /api/events/{eventid}/stages]
+
+API will automatically create, order, and name the stage based on standards.
+
++ Response 200
+    + Attributes (StageCreateResponse)
+
++ Response 404
+
++ Response 400
+    + Attributes (Error400)
+
+### Modify a stage [PUT /api/events/{eventid}/stages/{stageid}]
+
++ Request (application/json)
+    + Attributes (EventStageModify)
+
++ Response 204
+
++ Response 404
+
++ Response 400
+    + Attributes (Error400)
+
+### Remove a stage [DELETE /api/events/{eventid}/stages/{stageid}]
+
++ Response 204
+
++ Response 404
+
++ Response 400
+    + Attributes (Error400)
+
 ## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
 
 + Parameters
@@ -279,3 +312,12 @@ It's Ninja Time application API
 
 ## EventObstacleCreateResponse (object)
 - Obstacle (EventObstacle)
+
+## EventStageModify (object)
+- Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+
+## StageCreateResponse (object)
+- StageId: 9 (number) - Unique Id of the stage
+- StageName: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
+- StageOrder: 1 (number) - Numeric order of the stages in the event
+- ObstacleCount: 0 (number) - Count of obstacles assigned to this stage
