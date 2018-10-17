@@ -10,13 +10,13 @@ It's Ninja Time application API
 + Parameters
     + eventid (number) - Unique identifier of the event
 
-### List All Events [GET /api/events]
+### List all events [GET /api/events]
 
 + Response 200 (application/json)
     + Attributes
         - events (array[EventSummary])
 
-### Get Single Event [GET /api/events/{eventid}]
+### Get a single event [GET /api/events/{eventid}]
 
 + Response 200 (application/json)
     + Attributes
@@ -27,6 +27,107 @@ It's Ninja Time application API
 
 + Response 404
 
+### Modify event details [PUT /api/events/{eventid}]
+
++ Request (application/json)
+    + Attributes (EventDetailsUpdate)
+
++ Response 204
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
++ Response 404
+
+## Event Obstacle Collection [/api/events/{eventid}/obstacles]
+
++ Parameters
+    + eventid (number) - Unique identifier of the event
+
+### Add an event obstacle [POST /api/events/{eventid}/obstacles]
+
++ Request (application/json)
+    + Attributes (EventObstacleCreate)
+
++ Response 200
+    + Attributes (EventObstacleCreateResponse)
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+### Modify an event obstacle [PUT /api/events/{eventid}/obstacles/{obstacleid}]
+
++ Parameters
+    + obstacleid (number) - Unique identifier of the obstacle
+
++ Request (application/json)
+    + Attributes (EventObstacleModify)
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+### Remove an event obstacle [DELETE /api/events/{eventid}/obstacles/{obstacleid}]
+
++ Parameters
+    + obstacleid (number) - Unique identifier of the obstacle
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+## Event Participant Collection [/api/events/{eventid}/participants]
+
++ Parameters
+    + eventid (number) - Unique identifier of the event
+
+### Add an event participant [POST /api/events/{eventid}/participants]
+
++ Request (application/json)
+    + Attributes (EventParticipantCreate)
+
++ Response 200
+    + Attributes (EventParticipantCreateResponse)
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+### Modify an event participant [PUT /api/events/{eventid}/participants/{participantid}]
+
++ Parameters
+    + participantid (number) - Unique identifier of the participant in the event
+
++ Request (application/json)
+    + Attributes (EventParticipantModify)
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
+### Remove an event participant [DELETE /api/events/{eventid}/participants/{participantid}]
+
++ Parameters
+    + participantid (number) - Unique identifier of the participant in the event
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
 
 ## Stages Collection [/api/events/{eventid}/stages/{stageid}]
 
@@ -34,7 +135,7 @@ It's Ninja Time application API
     + eventid (number) - Unique identifier of the event
     + stageid (number) - Unique identifier of the stage
 
-### Retrieve a single stage [GET /api/events/{eventid}/stages/{stageid}]
+### Get a single stage [GET /api/events/{eventid}/stages/{stageid}]
 
 + Response 200 (application/json)
     + Attributes
@@ -78,7 +179,7 @@ It's Ninja Time application API
 
 + Response 404
 
-### Delete a single stage result [DELETE /api/events/{eventid}/stages/{stageid}/results/{runid}]
+### Remove a single stage result [DELETE /api/events/{eventid}/stages/{stageid}/results/{runid}]
 + Parameters
     + runid (number) - Unique identifier of this run result
 
@@ -105,6 +206,12 @@ It's Ninja Time application API
 - ActiveStageName: `Stage 1` (string) - Name of the ActiveStageId or blank
 - Completed: false (boolean) - Has the event been completed?
 
+## EventDetailsUpdate (object)
+- Name: `Sample Ninja Event` (string) - Viewed name of event
+- StartDate: `2018-10-10` (string) - Date only when it starts
+- Location: `Sample Location` (string) - Free text location description
+- Description: `Sample Description` (string) - Free text to describe anything else about your event
+
 ## EventParticipant (object)
 - Id: 4 (number) - Unique Id of the participant in this event
 - Name: `Don Thompson` (string) - Name of participant
@@ -120,7 +227,6 @@ It's Ninja Time application API
 ## EventObstacle (object)
 - ObstacleId: 13 (number) - Unique Id of this obstacle
 - Name: `Warped Wall` (string) - Name of this obstacle
-- StageId: 9 (number) - Unique Id of the stage this obstacle is part of
 - Description: `A very tall curved wall` (string) -  A description of the obstacle
 
 ## StageObstacle (object)
@@ -153,3 +259,23 @@ It's Ninja Time application API
 
 ## Error400 (object)
 - message: `An error has occurred` (string)
+
+## EventParticipantCreate (object)
+- Name: `Don Thompson` (string) - Name of the participant
+
+## EventParticipantModify (object)
+- Name: `Don Thompson` (string) - Name of the participant
+
+## EventParticipantCreateResponse (object)
+- Participant (EventParticipant)
+
+## EventObstacleCreate (object)
+- Name: `Warped Wall` (string) - Short name of the obstacle
+- Description: `A very tall curved wall` (string) -  A description of the obstacle
+
+## EventObstacleModify (object)
+- Name: `Warped Wall` (string) - Short name of the obstacle
+- Description: `A very tall curved wall` (string) -  A description of the obstacle
+
+## EventObstacleCreateResponse (object)
+- Obstacle (EventObstacle)
