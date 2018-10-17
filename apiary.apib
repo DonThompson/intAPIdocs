@@ -1,10 +1,9 @@
 FORMAT: 1A
 HOST: http://inttest.apiblueprint.org/
 
-# int TEST API
+# int API
 
-A test API to play with apiary.
-
+It's Ninja Time application API
 
 ## Events Collection [/api/events/{eventid}]
 
@@ -29,43 +28,6 @@ A test API to play with apiary.
 + Response 404
 
 
-### Create an Event [POST /api/events]
-
-+ Request (application/json)
-    + Attributes (EventCreate)
-
-+ Response 201 (application/json)
-    + Attributes (EventCreateResponse)
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Update an Event [PUT /api/events/{eventid}]
-
-+ Request (application/json)
-
-        {
-            name: "Event Name Here"
-        }
-
-+ Response 204
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Delete an Event [DELETE /api/events/{eventid}]
-
-+ Request (application/json)
-
-        {
-            id: 123
-        }
-
-+ Response 204
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
 ## Stages Collection [/api/events/{eventid}/stages/{stageid}]
 
 + Parameters
@@ -82,41 +44,6 @@ A test API to play with apiary.
         - finished (array[FinishedRun])
 
 + Response 404
-
-### Create a new stage [POST /api/events/{eventid}/stages]
-
-+ Request (application/json)
-    + Attributes (EventStageCreate)
-
-+ Response 201 (application/json)
-    + Attributes (EventStageCreateResponse)
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Update stage data [PUT /api/events/{eventid}/stages/{stageid}]
-
-+ Request (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED"
-        }
-
-+ Response 200 (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED"
-        }
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Delete a stage [DELETE /api/events/{eventid}/stages/{stageid}]
-
-+ Response 204
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
 
 ## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
 
@@ -162,73 +89,6 @@ A test API to play with apiary.
 + Response 400 (application/json)
     + Attributes (Error400)
 
-## Results Collection [/api/events/{eventid}/results/{resultid}]
-
-+ Parameters
-    + eventid (number) - Unique identifier of the event
-    + resultid (number) - Unique identifier of the result
-
-### Retrive a single result [GET /api/events/{eventid}/results/{resultid}]
-
-+ Request (application/json)
-
-+ Response 200 (application/json)
-    + Attributes
-        - summary (SingleResult)
-        - details (SingleResultDetails)
-        
-+ Response 404
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Record a new result [POST /api/events/{eventid}/results]
-
-+ Request (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED"
-        }
-
-+ Response 201 (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED - NEW ID HERE"
-        }
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-### Delete a result [DELETE /api/events/{eventid}/results]
-
-+ Response 204
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
-
-## Result Obstacle Collection [/api/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
-
-+ Parameters
-    + eventid (number) - Unique identifier of the event
-    + resultid (number) - Unique identifier of the result
-    + obstacleid (number) - Unique identifier of the obstacle in this stage to save results for
-
-### Update a result [PUT /api/events/{eventid}/results/{resultid}/obstacle/{obstacleid}]
-
-+ Request (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED"
-        }
-
-+ Response 200 (application/json)
-
-        {
-            name: "NOT YET IMPLEMENTED - NEW ID HERE"
-        }
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
 
 
 # Data Structures
@@ -257,10 +117,6 @@ A test API to play with apiary.
 - EventName: `Sample Ninja Event` (string) - Viewed name of the event this stage is part of
 - ObstacleCount: 6 (number) - Count of obstacles assigned to this stage
 
-## TODOWasInEventStageButTooMuch (object)
-- StageObstacles (array[EventObstacle]) - List of obstacles in this stage
-- StageParticipants (array[StageParticipant]) - List of participants in this stage
-
 ## EventObstacle (object)
 - ObstacleId: 13 (number) - Unique Id of this obstacle
 - Name: `Warped Wall` (string) - Name of this obstacle
@@ -272,10 +128,6 @@ A test API to play with apiary.
 - Name: `Warped Wall` (string) - Name of this obstacle
 - Order: 1 (number) - Unique Id of the stage this obstacle is part of
 - Description: `A very tall curved wall` (string) -  A description of the obstacle
-
-## StageParticipant (object)
-- Participant (EventParticipant) - Reference to participant data
-- Results (SingleResult) - Reference to participant results
 
 ## UpcomingRun (object)
 - RunId: 1 (number) - Unique Id of this run
@@ -299,36 +151,5 @@ A test API to play with apiary.
 - Place: 3 (number) - Finishing place in this stage.  Ordered by number completed descending then time ascending
 - Result (RunResultSummary) - Time and number of obstacles finished
 
-## SingleResult (object)
-- RunId: 42 (number) - Unique Id of this result among all results
-- StageRunOrder: 8 (number) - Order of this run among all participants in this stage
-- Result (RunResultSummary) - Time and number of obstacles finished
-
-## SingleResultDetails (object) - Additional details about a given run
-- RunId: 42 (number) - Unique Id of this result among all results
-- RunStartLocalTime: `2018-10-10T14:03:52` (string) - Local time without time zone when the run started
-- RunEndLocalTime: `2018-10-10T14:05:15` (string) - Local time without time zone when the run completed
-- ObstacleDetails (SingleObstacleResultDetails) - Details about timing for each obstacle
-
-## SingleObstacleResultDetails (object)
-- ObstacleId: 13 (number) - Unique Id of the obstacle attempted
-- TotalTimeToComplete: 18.3 (number) - Total time from the beginning of the run to completion of this obstacle.  Each obstacle will include all previous obstacles.
-- Completed:  true (boolean) - Was the obstacle completed?
-- Attempted:  true (boolean) - Was the obstacle attempted yet?
-
 ## Error400 (object)
 - message: `An error has occurred` (string)
-
-## EventCreate (object) - An object for the creation of a new event
-- Name: `Sample Ninja Event` (string) - Visible display name of the event
-- StartDate: `2018-10-10` (string) - Date the event begins
-
-## EventCreateResponse (object) - Response after successfully creating an event
-- EventId: 5 (number) - Unique Id of the event just created
-
-## EventStageCreate (object)
-- Name: `Stage 1` (string) - Name of the stage
-- Order: 1 (number) - Order of this stage
-
-## EventStageCreateResponse (object)
-- StageId: 9 (number) - Unique Id of the stage just created
