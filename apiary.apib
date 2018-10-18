@@ -104,7 +104,7 @@ It's Ninja Time application API
 + Request (application/json)
     + Attributes (EventParticipantCreate)
 
-+ Response 200
++ Response 200 (application/json)
     + Attributes (EventParticipantCreateResponse)
 
 + Response 400 (application/json)
@@ -323,7 +323,7 @@ API will automatically create, order, and name the stage based on standards.
 ## EventSummary (object)
 - EventId: 5 (number) - Unique Id of the event
 - Name: `Sample Ninja Event` (string) - Viewed name of event
-- StartDate: `2018-10-10` (string) - Date only when it starts
+- StartDate: `2018-10-10` (string) - Date and time when the event starts
 - Location: `Sample Location` (string) - Free text location description
 - Description: `Sample Description` (string) - Free text to describe anything else about your event
 - ParticipantCount: 20 (number) - How many participants we currently have
@@ -334,7 +334,7 @@ API will automatically create, order, and name the stage based on standards.
 
 ## EventDetailsUpdate (object)
 - Name: `Sample Ninja Event` (string) - Viewed name of event
-- StartDate: `2018-10-10` (string) - Date only when it starts
+- StartDate: `2018-10-10` (string) - Date and time when the event starts
 - Location: `Sample Location` (string) - Free text location description
 - Description: `Sample Description` (string) - Free text to describe anything else about your event
 
@@ -385,7 +385,7 @@ API will automatically create, order, and name the stage based on standards.
 - Result (RunResultSummary) - Time and number of obstacles finished
 
 ## Error400 (object)
-- message: `An error has occurred` (string)
+- Message: `An error has occurred` (string)
 
 ## EventParticipantCreate (object)
 - Name: `Don Thompson` (string) - Name of the participant
