@@ -39,6 +39,16 @@ It's Ninja Time application API
 
 + Response 404
 
+### Start an event [POST /api/events/{eventid}/start]
+
++ Response 200 (application/json)
+    + Attributes (StartStageResponse)
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
++ Response 404
+
 ## Event Obstacle Collection [/api/events/{eventid}/obstacles]
 
 + Parameters
@@ -150,12 +160,12 @@ It's Ninja Time application API
 
 API will automatically create, order, and name the stage based on standards.
 
-+ Response 200
++ Response 200 (application/json)
     + Attributes (StageCreateResponse)
 
 + Response 404
 
-+ Response 400
++ Response 400 (application/json)
     + Attributes (Error400)
 
 ### Modify a stage [PUT /api/events/{eventid}/stages/{stageid}]
@@ -167,7 +177,7 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 404
 
-+ Response 400
++ Response 400 (application/json)
     + Attributes (Error400)
 
 ### Remove a stage [DELETE /api/events/{eventid}/stages/{stageid}]
@@ -176,8 +186,38 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 404
 
-+ Response 400
++ Response 400 (application/json)
     + Attributes (Error400)
+
+### End a live stage [POST /api/events/{eventid}/stages/{stageid}/finish]
+
++ Request (application/json)
+    + Attributes (EndStageParticipants)
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
++ Response 200 (application/json)
+    + Attributes (StartStageResponse)
+
+### Reorder upcoming runs in a live stage [POST /api/events/{eventid}/stages/{stageid}/order]
+
++ Request (application/json)
+    + Attributes (StageReorderRequest)
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
++ Response 200 (application/json)
+    + Attributes
+        - details (EventStage)
+        - obstacles (array[StageObstacle])
+        - upcoming (array[UpcomingRun])
+        - finished (array[FinishedRun])
 
 ## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
 
@@ -297,6 +337,7 @@ API will automatically create, order, and name the stage based on standards.
 - EventId: 5 (number) - Unique Id of the event this stage is part of
 - EventName: `Sample Ninja Event` (string) - Viewed name of the event this stage is part of
 - ObstacleCount: 6 (number) - Count of obstacles assigned to this stage
+- IsLastStage: false (boolean) - Is this the last stage in the event?
 
 ## EventObstacle (object)
 - ObstacleId: 13 (number) - Unique Id of this obstacle
@@ -369,3 +410,13 @@ API will automatically create, order, and name the stage based on standards.
 
 ## StageObstacleReorder (object)
 - NewOrder: 3 (number) - New order of this obstacle in the stage.  The old obstacle at this position and all other are pushed down by one.  First obstacle is 1.
+
+## StartStageResponse (object)
+- StageId: 1 (number) - The unique identifier of the stage now active for this event.
+
+## EndStageParticipants (object)
+- Participants (array[number]) - An array of EventParticipant unique identifiers for the participants who will move on to the next stage.  When finishing the last stage, this value will be ignored and can be null.
+
+## StageReorderRequest (object)
+- Method: 'random' (string) - String of the method to use in reordering.  Reorders only apply to participants not yet finished.  Options are:  'random', 'first', 'reverse', 'manual'
+- Participants (array[number]) - Only used if method is 'manual'.  An ordered array of event participant ids to cause a re-order for the event.  Will ignore any changes to participants with results for this stage.
