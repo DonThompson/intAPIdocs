@@ -62,10 +62,10 @@ It's Ninja Time application API
 + Response 200
     + Attributes (EventObstacleCreateResponse)
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Modify an event obstacle [PUT /api/events/{eventid}/obstacles/{obstacleid}]
 
@@ -77,10 +77,10 @@ It's Ninja Time application API
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Remove an event obstacle [DELETE /api/events/{eventid}/obstacles/{obstacleid}]
 
@@ -89,10 +89,10 @@ It's Ninja Time application API
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ## Event Participant Collection [/api/events/{eventid}/participants]
 
@@ -107,10 +107,10 @@ It's Ninja Time application API
 + Response 200
     + Attributes (EventParticipantCreateResponse)
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Modify an event participant [PUT /api/events/{eventid}/participants/{participantid}]
 
@@ -122,10 +122,10 @@ It's Ninja Time application API
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Remove an event participant [DELETE /api/events/{eventid}/participants/{participantid}]
 
@@ -134,10 +134,10 @@ It's Ninja Time application API
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ## Stages Collection [/api/events/{eventid}/stages/{stageid}]
 
@@ -163,10 +163,10 @@ API will automatically create, order, and name the stage based on standards.
 + Response 200 (application/json)
     + Attributes (StageCreateResponse)
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Modify a stage [PUT /api/events/{eventid}/stages/{stageid}]
 
@@ -175,42 +175,37 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Remove a stage [DELETE /api/events/{eventid}/stages/{stageid}]
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### End a live stage [POST /api/events/{eventid}/stages/{stageid}/finish]
 
 + Request (application/json)
     + Attributes (EndStageParticipants)
 
-+ Response 404
++ Response 200 (application/json)
+    + Attributes (StartStageResponse)
 
 + Response 400 (application/json)
     + Attributes (Error400)
 
-+ Response 200 (application/json)
-    + Attributes (StartStageResponse)
++ Response 404
 
 ### Reorder upcoming runs in a live stage [POST /api/events/{eventid}/stages/{stageid}/order]
 
 + Request (application/json)
     + Attributes (StageReorderRequest)
-
-+ Response 404
-
-+ Response 400 (application/json)
-    + Attributes (Error400)
 
 + Response 200 (application/json)
     + Attributes
@@ -218,6 +213,11 @@ API will automatically create, order, and name the stage based on standards.
         - obstacles (array[StageObstacle])
         - upcoming (array[UpcomingRun])
         - finished (array[FinishedRun])
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
++ Response 404
 
 ## Stage Obstacles [/api/events/{eventid}/stages/{stageid}/obstacles]
 
@@ -242,10 +242,10 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Modify obstacle order in stage [PUT /api/events/{eventid}/stages/{stageid}/obstacles/{obstacleid}]
 
@@ -257,10 +257,10 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Remove stage obstacle [DELETE /api/events/{eventid}/stages/{stageid}/obstacles/{obstacleid}]
 
@@ -271,10 +271,10 @@ API will automatically create, order, and name the stage based on standards.
     + Attributes
         - obstacles (array[StageObstacle])
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ## Stage Results [/api/events/{eventid}/stages/{stageid}/results]
 
@@ -302,10 +302,10 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
+
++ Response 404
 
 ### Remove a single stage result [DELETE /api/events/{eventid}/stages/{stageid}/results/{runid}]
 + Parameters
@@ -313,12 +313,10 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 204
 
-+ Response 404
-
 + Response 400 (application/json)
     + Attributes (Error400)
 
-
++ Response 404
 
 # Data Structures
 
