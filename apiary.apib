@@ -293,6 +293,20 @@ API will automatically create, order, and name the stage based on standards.
 
 + Response 404
 
+### Record a single stage result [POST /api/events/{eventid}/stages/{stageid}/results/{runid}]
++ Parameters
+    + runid (number) - Unique identifier of this run result
+
++ Request (application/json)
+    + Attributes (RecordStageResult)
+
++ Response 204
+
++ Response 404
+
++ Response 400 (application/json)
+    + Attributes (Error400)
+
 ### Remove a single stage result [DELETE /api/events/{eventid}/stages/{stageid}/results/{runid}]
 + Parameters
     + runid (number) - Unique identifier of this run result
@@ -420,3 +434,13 @@ API will automatically create, order, and name the stage based on standards.
 ## StageReorderRequest (object)
 - Method: 'random' (string) - String of the method to use in reordering.  Reorders only apply to participants not yet finished.  Options are:  'random', 'first', 'reverse', 'manual'
 - Participants (array[number]) - Only used if method is 'manual'.  An ordered array of event participant ids to cause a re-order for the event.  Will ignore any changes to participants with results for this stage.
+
+## ObstacleResult (object)
+- ObstacleId: 9 (number) - Unique identifier of the obstacle in the stage
+- Attempted: true (boolean) - Was the obstacle attempted?
+- Completed: true (boolean) - Was the obstacle completed successfully?
+- TimeToFinish: 84.15 (number) - Time in seconds to complete this obstacle since the beginning of the run.  Timed in fractional seconds.
+
+## RecordStageResult (object)
+- StartLocalTime: `2018-10-10 10:13:28 am` - Local time from the timing device when the run started.
+- ObstacleResults (array[ObstacleResult]) - Array of results for each obstacle in the stage
