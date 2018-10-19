@@ -13,24 +13,19 @@ It's Ninja Time application API
 ### List all events [GET /api/events]
 
 + Response 200 (application/json)
-    + Attributes
-        - events (array[EventSummary])
+    + Attributes (EventList)
 
 ### Get a single event [GET /api/events/{eventid}]
 
 + Response 200 (application/json)
-    + Attributes
-        - event (EventSummary)
-        - participants (array[EventParticipant])
-        - stages (array[EventStage])
-        - obstacles (array[EventObstacle])
+    + Attributes (EventDetail)
 
 + Response 404
 
 ### Modify event details [PUT /api/events/{eventid}]
 
 + Request (application/json)
-    + Attributes (EventDetailsUpdate)
+    + Attributes (EventDetailUpdate)
 
 + Response 204
 
@@ -148,11 +143,7 @@ It's Ninja Time application API
 ### Get a single stage [GET /api/events/{eventid}/stages/{stageid}]
 
 + Response 200 (application/json)
-    + Attributes
-        - details (EventStage)
-        - obstacles (array[StageObstacle])
-        - upcoming (array[UpcomingRun])
-        - finished (array[FinishedRun])
+    + Attributes (StageDetail)
 
 + Response 404
 
@@ -192,7 +183,7 @@ API will automatically create, order, and name the stage based on standards.
 ### End a live stage [POST /api/events/{eventid}/stages/{stageid}/finish]
 
 + Request (application/json)
-    + Attributes (EndStageParticipants)
+    + Attributes (EndStageParticipantList)
 
 + Response 200 (application/json)
     + Attributes (StartStageResponse)
@@ -208,11 +199,7 @@ API will automatically create, order, and name the stage based on standards.
     + Attributes (StageReorderRequest)
 
 + Response 200 (application/json)
-    + Attributes
-        - details (EventStage)
-        - obstacles (array[StageObstacle])
-        - upcoming (array[UpcomingRun])
-        - finished (array[FinishedRun])
+    + Attributes (StageDetail)
 
 + Response 400 (application/json)
     + Attributes (Error400)
@@ -230,8 +217,7 @@ API will automatically create, order, and name the stage based on standards.
 + Request (application/json)
 
 + Response 200 (application/json)
-    + Attributes
-        - obstacles (array[StageObstacle])
+    + Attributes (StageObstacleList)
 
 + Response 404
 
@@ -268,8 +254,7 @@ API will automatically create, order, and name the stage based on standards.
     + obstacleid (number) - Unique identifier of the obstacle in this event
 
 + Response 200 (application/json)
-    + Attributes
-        - obstacles (array[StageObstacle])
+    + Attributes (StageObstacleList)
 
 + Response 400 (application/json)
     + Attributes (Error400)
@@ -287,9 +272,7 @@ API will automatically create, order, and name the stage based on standards.
 + Request (application/json)
 
 + Response 200 (application/json)
-    + Attributes
-        - details (EventStage)
-        - results (array[StageResult])
+    + Attributes (EventStageResultList)
 
 + Response 404
 
@@ -320,6 +303,9 @@ API will automatically create, order, and name the stage based on standards.
 
 # Data Structures
 
+## EventList (object)
+- Events (array[EventSummary])
+
 ## EventSummary (object)
 - EventId: 5 (number) - Unique Id of the event
 - Name: `Sample Ninja Event` (string) - Viewed name of event
@@ -332,15 +318,27 @@ API will automatically create, order, and name the stage based on standards.
 - ActiveStageName: `Stage 1` (string) - Name of the ActiveStageId or blank
 - Completed: false (boolean) - Has the event been completed?
 
-## EventDetailsUpdate (object)
+## EventDetail (object)
+- EventSummary (EventSummary)
+- ParticipantList (array[EventParticipant])
+- StageList (array[EventStage])
+- ObstacleList (array[EventObstacle])
+
+## EventDetailUpdate (object)
 - Name: `Sample Ninja Event` (string) - Viewed name of event
 - StartDate: `2018-10-10` (string) - Date and time when the event starts
 - Location: `Sample Location` (string) - Free text location description
 - Description: `Sample Description` (string) - Free text to describe anything else about your event
 
 ## EventParticipant (object)
-- Id: 4 (number) - Unique Id of the participant in this event
+- ParticipantId: 4 (number) - Unique Id of the participant in this event
 - Name: `Don Thompson` (string) - Name of participant
+
+## StageDetail (object)
+- Details (EventStage)
+- ObstacleList (array[StageObstacle])
+- UpcomingList (array[UpcomingRun])
+- FinishedList (array[FinishedRun])
 
 ## EventStage (object)
 - StageId: 9 (number) - Unique Id of the stage
@@ -417,6 +415,9 @@ API will automatically create, order, and name the stage based on standards.
 - StageOrder: 1 (number) - Numeric order of the stages in the event
 - ObstacleCount: 0 (number) - Count of obstacles assigned to this stage
 
+## StageObstacleList (object)
+- Obstacles (array[StageObstacle])
+
 ## StageObstacleAdd (object)
 - ObstacleId: 13 (number) - Unique Id of the event obstacle to add to the stage
 
@@ -426,12 +427,16 @@ API will automatically create, order, and name the stage based on standards.
 ## StartStageResponse (object)
 - StageId: 1 (number) - The unique identifier of the stage now active for this event.
 
-## EndStageParticipants (object)
-- Participants (array[number]) - An array of EventParticipant unique identifiers for the participants who will move on to the next stage.  When finishing the last stage, this value will be ignored and can be null.
+## EndStageParticipantList (object)
+- ParticipantList (array[number]) - An array of EventParticipant unique identifiers for the participants who will move on to the next stage.  When finishing the last stage, this value will be ignored and can be null.
+
+## EventStageResultList (object)
+- Details (EventStage)
+- ResultList (array[StageResult])
 
 ## StageReorderRequest (object)
 - Method: 'random' (string) - String of the method to use in reordering.  Reorders only apply to participants not yet finished.  Options are:  'random', 'first', 'reverse', 'manual'
-- Participants (array[number]) - Only used if method is 'manual'.  An ordered array of event participant ids to cause a re-order for the event.  Will ignore any changes to participants with results for this stage.
+- ParticipantList (array[number]) - Only used if method is 'manual'.  An ordered array of event participant ids to cause a re-order for the event.  Will ignore any changes to participants with results for this stage.
 
 ## ObstacleResult (object)
 - ObstacleId: 9 (number) - Unique identifier of the obstacle in the stage
@@ -441,4 +446,4 @@ API will automatically create, order, and name the stage based on standards.
 
 ## RecordStageResult (object)
 - StartLocalTime: `2018-10-10 10:13:28 am` - Local time from the timing device when the run started.
-- ObstacleResults (array[ObstacleResult]) - Array of results for each obstacle in the stage
+- ObstacleResultList (array[ObstacleResult]) - Array of results for each obstacle in the stage
