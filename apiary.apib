@@ -152,7 +152,7 @@ It's Ninja Time application API
 API will automatically create, order, and name the stage based on standards.
 
 + Response 200 (application/json)
-    + Attributes (StageCreateResponse)
+    + Attributes (EventStage)
 
 + Response 400 (application/json)
     + Attributes (Error400)
@@ -408,12 +408,6 @@ API will automatically create, order, and name the stage based on standards.
 ## EventStageModify (object)
 - Name: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.  Leave null if you do not want to change.
 - NewOrder: 1 (number) - New order of the stage if you want to re-order them.  Leave null if you do not want to change.
-
-## StageCreateResponse (object)
-- StageId: 9 (number) - Unique Id of the stage
-- StageName: `Stage 1` (string) - Name of the stage.  Typically Stage 1, Stage 2, etc.
-- StageOrder: 1 (number) - Numeric order of the stages in the event
-- ObstacleCount: 0 (number) - Count of obstacles assigned to this stage
 
 ## StageObstacleList (object)
 - ObstacleList (array[StageObstacle])
