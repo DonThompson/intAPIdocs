@@ -147,6 +147,13 @@ It's Ninja Time application API
 
 + Response 404
 
+### Get missing participants [GET /api/events/{eventid}/stages/{stageid}/missingparticipants]
+
++ Response 200 (application/json)
+    + Attributes (StageMissingParticipants)
+
++ Response 404
+
 ### Add a stage [POST /api/events/{eventid}/stages]
 
 API will automatically create, order, and name the stage based on standards.
@@ -443,3 +450,6 @@ API will automatically create, order, and name the stage based on standards.
 ## RecordStageResult (object)
 - StartLocalTime: `2018-10-10 10:13:28 am` - Local time from the timing device when the run started.
 - ObstacleResultList (array[ObstacleResult]) - Array of results for each obstacle in the stage
+
+## StageMissingParticipants (object)
+- ParticipantList (array[EventParticipant])
